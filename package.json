@@ -1,14 +1,11 @@
 {
   "name": "@codianz/better-date",
-  "version": "0.0.0",
+  "version": "0.0.7",
   "description": "The Date object easier to work with.",
   "main": "./dist/bdate.js",
-  "files": [
-    "./dist"
-  ],
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "npm run build",
+    "prepare": "tsc",
     "test": "tsc && node ./dist/test.js",
     "deploy": "npm publish --access=public"
   },
