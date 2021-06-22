@@ -1,0 +1,29 @@
+{
+  "name": "better-date",
+  "version": "0.0.0",
+  "description": "The Date object easier to work with.",
+  "main": "./dist/bdate.js",
+  "files": [
+    "./dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "tsc && node ./dist/test.js"
+  },
+  "keywords": [
+    "Date",
+    "Typescript"
+  ],
+  "author": "Terukazu Inoue",
+  "license": "MIT",
+  "homepage": "https://github.com/CODIANZ/better-date",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CODIANZ/better-date.git"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.4",
+    "typescript": "^4.3.4"
+  }
+}
