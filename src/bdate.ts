@@ -43,8 +43,8 @@ export class BDate {
   public set date(n: number) { this.rawDate.setDate(n); }
   public get month() { return this.rawDate.getMonth(); }
   public set month(n: number) { this.rawDate.setMonth(n); }
-  public get fullYear() { return this.rawDate.getFullYear(); }
-  public set fullYear(n: number) { this.rawDate.setFullYear(n); }
+  public get year() { return this.rawDate.getFullYear(); }
+  public set year(n: number) { this.rawDate.setFullYear(n); }
   public get time() { return this.rawDate.getTime(); }
   public set time(n: number) { this.rawDate.setTime(n); }
   public get day() { return this.rawDate.getDay(); }
@@ -66,8 +66,8 @@ export class BDate {
       set date(n: number) { this.rawDate.setUTCDate(n); }
       get month() { return this.rawDate.getUTCMonth(); }
       set month(n: number) { this.rawDate.setUTCMonth(n); }
-      get fullYear() { return this.rawDate.getUTCFullYear(); }
-      set fullYear(n: number) { this.rawDate.setUTCFullYear(n); }
+      get year() { return this.rawDate.getUTCFullYear(); }
+      set year(n: number) { this.rawDate.setUTCFullYear(n); }
       get day() { return this.rawDate.getUTCDay(); }
     }(this);
   }
@@ -181,7 +181,7 @@ export class BDate {
     dateTimeSeparator?: string;
     withMilliseconds?: boolean;
   }) {
-    const sep = p?.dateSeparator ?? " ";
+    const sep = p?.dateTimeSeparator ?? " ";
     const ymd = this.toDateString(p?.dateSeparator);
     const hms = this.toTimeString(p?.timeSeparator, p?.withMilliseconds);
     return ymd + sep + hms;
