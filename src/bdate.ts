@@ -45,7 +45,10 @@ export class BDate {
   public set month(n: number) { this.rawDate.setMonth(n); }
   public get fullYear() { return this.rawDate.getFullYear(); }
   public set fullYear(n: number) { this.rawDate.setFullYear(n); }
+  public get time() { return this.rawDate.getTime(); }
+  public set time(n: number) { this.rawDate.setTime(n); }
   public get day() { return this.rawDate.getDay(); }
+  public get timezoneOffset() { return this.rawDate.getTimezoneOffset(); }
 
   public get utc() {
     return new class {
@@ -173,20 +176,14 @@ export class BDate {
   }
 
   public toString(p?: {
-    mode?: "full" | "date" | "time";
     dateSeparator?: string;
     timeSeparator?: string;
     dateTimeSeparator?: string;
     withMilliseconds?: boolean;
   }) {
-    const type = p?.mode ?? "full";
-    const dateTimeSeparator = p?.dateSeparator ?? " ";
-
-    const ymd = (type == "full" || type == "date") ?
-      this.toDateString(p?.dateSeparator) : "";
-    const sep = type == "full" ? dateTimeSeparator : " ";
-    const hms = (type == "full" || type == "time") ?
-      this.toTimeString(p?.timeSeparator, p?.withMilliseconds) : "";
+    const sep = p?.dateSeparator ?? " ";
+    const ymd = this.toDateString(p?.dateSeparator);
+    const hms = this.toTimeString(p?.timeSeparator, p?.withMilliseconds);
     return ymd + sep + hms;
   }
 
