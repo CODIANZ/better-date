@@ -27,6 +27,10 @@ export class BDate {
     }
   }
 
+  public static from(anyValue?: string | number | Date | BDate, month?: number, day?: number, hour?: number, minute?: number, second?: number, ms?: number){
+    return new BDate(anyValue, month, day, hour, minute, second, ms);
+  }
+
   public static get Now() {
     return new BDate();
   }
