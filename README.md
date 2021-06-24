@@ -51,7 +51,6 @@ bd22u.utc.year += 1;
 bd22u.utc.milliseconds -= 1;
 console.log(bd22u.toString());  // 2022/12/28 22:08:02
 
-
 const bd3 = new BDate(2019, 9, 9, 1, 2, 3, 4);
 const bd3s = bd3.beginningOfDay();
 const bd3e = bd3.endOfDay();
@@ -79,4 +78,8 @@ console.log(bd3me.toString({
   timeSeparator: "-",
   dateTimeSeparator: "T"
 }));  // 2019-10-31T23-59-59.999
+
+const bd4 =   new BDate(2021, 1, 2, 3, 4, 5, 6);
+const bd42 = BDate.from(2021, 1, 2, 3, 4, 5, 6);
+console.log(bd4.toString({withMilliseconds: true}));  // 2021/02/02 03:04:05.006
 ```

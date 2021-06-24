@@ -118,6 +118,13 @@ assert(bd3me.toString({
   dateTimeSeparator: "T"
 }) === "2019-10-31T23-59-59.999");
 
+
+const bd4 =   new BDate(2021, 1, 2, 3, 4, 5, 6);
+const bd42 = BDate.from(2021, 1, 2, 3, 4, 5, 6);
+console.log(bd4.toString({withMilliseconds: true}));  // 2021/02/02 03:04:05.006
+assert(bd4.time == bd42.time);
+
+
 console.log("finish");
 debugger;
 
