@@ -31,7 +31,7 @@ export class BDate {
     return new BDate(anyValue, month, day, hour, minute, second, ms);
   }
 
-  public static get Now() {
+  public static get now() {
     return new BDate();
   }
 
@@ -157,41 +157,68 @@ export class BDate {
     return dt.endOfDay();
   }
 
-  public toTimeString(separator?: string, bWithMilliseconds?: boolean) {
-    const sep = separator ?? ":";
-    const withMS = bWithMilliseconds === undefined ? false: bWithMilliseconds;
-    // prettier-ignore
-    return  ("00"   + this.rawDate.getHours()  ).slice(-2) +
-            sep +
-            ("00"   + this.rawDate.getMinutes()).slice(-2) +
-            sep +
-            ("00"   + this.rawDate.getSeconds()).slice(-2) +
-            (withMS ? "." + ("000" + this.rawDate.getMilliseconds()).slice(-3) : "");
-  }
-
-  public toDateString(separator?: string){
-    const sep = separator ?? "/";
-    // prettier-ignore
-    return  ("0000" + this.rawDate.getFullYear()).slice(-4) +
-            sep +
-            ("00"   +(this.rawDate.getMonth()+1)).slice(-2) +
-            sep +
-            ("00"   + this.rawDate.getDate()    ).slice(-2);
-  }
-
-  public toString(p?: {
-    dateSeparator?: string;
-    timeSeparator?: string;
-    dateTimeSeparator?: string;
-    withMilliseconds?: boolean;
-  }) {
-    const sep = p?.dateTimeSeparator ?? " ";
-    const ymd = this.toDateString(p?.dateSeparator);
-    const hms = this.toTimeString(p?.timeSeparator, p?.withMilliseconds);
-    return ymd + sep + hms;
+  public toString(){
+    return this.format("%YYYY/%MM/%DD %hh:%mm:%ss");
   }
 
   public toISOString() {
     return this.rawDate.toISOString();
+  }
+
+  public fragments = {
+    YYYY: () => ("0000" + this.rawDate.getFullYear().toString()).slice(-4),
+    MM:   () => ("00"   +(this.rawDate.getMonth()+1).toString()).slice(-2),
+    DD:   () => ("00"   + this.rawDate.getDate().toString()    ).slice(-2),
+    hh:   () => ("00"   + this.rawDate.getHours().toString()   ).slice(-2),
+    mm:   () => ("00"   + this.rawDate.getMinutes().toString() ).slice(-2),
+    ss:   () => ("00"   + this.rawDate.getSeconds().toString() ).slice(-2),
+    ms:   () => ("000"  + this.rawDate.getMilliseconds().toString()).slice(-3),
+    YY:   () => this.rawDate.getFullYear().toString().slice(-2),
+    M:    () => (this.rawDate.getMonth() + 1).toString(),
+    D:    () => this.rawDate.getDate().toString(),
+    h:    () => this.rawDate.getHours().toString(),
+    m:    () => this.rawDate.getMinutes().toString(),
+    s:    () => this.rawDate.getSeconds().toString()
+  }
+
+  /**
+   * Format date-time string.
+   * @param fmt A string that specifies formatting.
+   * 
+   * * %%    : char of '%'
+   * * %YYYY : 4-digit year
+   * * %YY   : 2-digit year
+   * * %MM   : 2-digit month
+   * * %DD   : 2-digit date
+   * * %hh   : 2-digit hours
+   * * %mm   : 2-digit minutes
+   * * %ss   : 2-digit seconds
+   * * %ms   : 3-digit milliseconds
+   * * %m    : month
+   * * %d    : date
+   * * %h    : hours
+   * * %m    : minutes
+   * * %s    : seconds
+   */
+  public format(fmt: string){
+    return fmt.replace(/%(%|YYYY|YY|MM|M|DD|D|hh|h|mm|ms|ss|m|s)/g, (match, p) => {
+      switch(p){
+        case "%":     return "%";    
+        case "YYYY":  return this.fragments.YYYY();
+        case "YY":    return this.fragments.YY();
+        case "MM":    return this.fragments.MM();
+        case "M":     return this.fragments.M();
+        case "DD":    return this.fragments.DD();
+        case "D":     return this.fragments.D();
+        case "hh":    return this.fragments.hh();
+        case "h":     return this.fragments.h();
+        case "mm":    return this.fragments.mm();
+        case "m":     return this.fragments.m();
+        case "ss":    return this.fragments.ss();
+        case "s":     return this.fragments.s();
+        case "ms":    return this.fragments.ms();
+      }
+      return match;
+    });
   }
 }
