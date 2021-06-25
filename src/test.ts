@@ -43,7 +43,7 @@ const bd2 = bd1.addMinutes(66)
 
 assert(bd1.time === d1.getTime()); // not modified d1
 
-console.log(bd2.toString({withMilliseconds: true}));
+console.log(bd2.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));
 assert(bd2.time === d2.getTime());
 
 const bd22 = new BDate(d1);
@@ -64,66 +64,34 @@ assert(bd2.utc.minutes === d2.getUTCMinutes());
 assert(bd2.utc.seconds === d2.getUTCSeconds());
 assert(bd2.utc.milliseconds === d2.getUTCMilliseconds());
 
-
 const bd3 = new BDate(2019, 9, 9, 1, 2, 3, 4);
 const bd3s = bd3.beginningOfDay();
 const bd3e = bd3.endOfDay();
-console.log(bd3.toString({withMilliseconds: true}));  // 2019/10/09 01:02:03.004
-console.log(bd3s.toString({withMilliseconds: true})); // 2019/10/09 00:00:00.000
-console.log(bd3e.toString({withMilliseconds: true})); // 2019/10/09 23:59:59.999
+console.log(bd3.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms" )); // 2019/10/09 01:02:03.004
+console.log(bd3s.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms")); // 2019/10/09 00:00:00.000
+console.log(bd3e.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms")); // 2019/10/09 23:59:59.999
 
-assert(bd3.toString({withMilliseconds: true}) === "2019/10/09 01:02:03.004");
-assert(bd3s.toString({withMilliseconds: true}) === "2019/10/09 00:00:00.000");
-assert(bd3e.toString({withMilliseconds: true}) === "2019/10/09 23:59:59.999");
+assert(bd3.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms" ) === "2019/10/09 01:02:03.004");
+assert(bd3s.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms") === "2019/10/09 00:00:00.000");
+assert(bd3e.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms") === "2019/10/09 23:59:59.999");
 
 const bd3ms = bd3.beginningOfMonth();
 const bd3me = bd3.endOfMonth();
-console.log(bd3.toString({
-  withMilliseconds: true,
-  dateSeparator: "-",
-  timeSeparator: "-",
-  dateTimeSeparator: "T"
-}));  // 2019-10-09T01-02-03.004
-console.log(bd3ms.toString({
-  withMilliseconds: true,
-  dateSeparator: "-",
-  timeSeparator: "-",
-  dateTimeSeparator: "T"
-}));  // 2019-10-01T00-00-00.000
-console.log(bd3me.toString({
-  withMilliseconds: true,
-  dateSeparator: "-",
-  timeSeparator: "-",
-  dateTimeSeparator: "T"
-}));  // 2019-10-31T23-59-59.999
+console.log(bd3.format("%YYYY-%MM-%DDT%hh-%mm-%ss.%ms"  )); // 2019-10-09T01-02-03.004
+console.log(bd3ms.format("%YYYY-%MM-%DDT%hh-%mm-%ss.%ms")); // 2019-10-01T00-00-00.000
+console.log(bd3me.format("%YYYY-%MM-%DDT%hh-%mm-%ss.%ms")); // 2019-10-31T23-59-59.999
 
-
-
-assert(bd3.toString({
-  withMilliseconds: true,
-  dateSeparator: "-",
-  timeSeparator: "-",
-  dateTimeSeparator: "T"
-}) === "2019-10-09T01-02-03.004");
-assert(bd3ms.toString({
-  withMilliseconds: true,
-  dateSeparator: "-",
-  timeSeparator: "-",
-  dateTimeSeparator: "T"
-}) === "2019-10-01T00-00-00.000");
-assert(bd3me.toString({
-  withMilliseconds: true,
-  dateSeparator: "-",
-  timeSeparator: "-",
-  dateTimeSeparator: "T"
-}) === "2019-10-31T23-59-59.999");
-
+assert(bd3.format("%YYYY-%MM-%DDT%hh-%mm-%ss.%ms"  ) === "2019-10-09T01-02-03.004");
+assert(bd3ms.format("%YYYY-%MM-%DDT%hh-%mm-%ss.%ms") === "2019-10-01T00-00-00.000");
+assert(bd3me.format("%YYYY-%MM-%DDT%hh-%mm-%ss.%ms") === "2019-10-31T23-59-59.999");
 
 const bd4 =   new BDate(2021, 1, 2, 3, 4, 5, 6);
 const bd42 = BDate.from(2021, 1, 2, 3, 4, 5, 6);
-console.log(bd4.toString({withMilliseconds: true}));  // 2021/02/02 03:04:05.006
+console.log(bd4.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/02/02 03:04:05.006
 assert(bd4.time == bd42.time);
 
+console.log(bd4.format("%YYYY%MM%DD%hh%mm%ss%ms%YY%M%D%h%m%s%%"))
+assert(bd4.format("%YYYY%MM%DD%hh%mm%ss%ms%YY%M%D%h%m%s%%") === "202102020304050062122345%");
 
 console.log("finish");
 debugger;
