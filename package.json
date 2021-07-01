@@ -1,6 +1,6 @@
 {
   "name": "@codianz/better-date",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "The Date object easier to work with.",
   "main": "./dist/bdate.js",
   "scripts": {
@@ -15,10 +15,10 @@
   ],
   "author": "Terukazu Inoue",
   "license": "MIT",
-  "homepage": "https://github.com/CODIANZ/better-date",
+  "homepage": "https://github.com/CODIANZ/npm.better-date",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CODIANZ/better-date.git"
+    "url": "https://github.com/CODIANZ/npm.better-date.git"
   },
   "devDependencies": {
     "@types/node": "^15.12.4",
