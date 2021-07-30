@@ -67,4 +67,14 @@ console.log(bd3me.format("%YYYY-%MM-%DDT%hh-%mm-%ss.%ms")); // 2019-10-31T23-59-
 
 const bd4 =   new BDate(2021, 1, 2, 3, 4, 5, 6);
 console.log(bd4.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/02/02 03:04:05.006
+
+const bd4_sw = bd4.beginningOfWeek();
+const bd4_ew = bd4.endOfWeek();
+console.log(bd4_sw.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/01/31 00:00:00.000
+console.log(bd4_ew.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/02/06 23:59:59.999
+
+const bd4_sy = bd4.beginningOfYear();
+const bd4_ey = bd4.endOfYear();
+console.log(bd4_sy.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/01/01 00:00:00.000
+console.log(bd4_ey.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/12/31 23:59:59.999
 ```

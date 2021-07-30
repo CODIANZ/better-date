@@ -93,6 +93,22 @@ assert(bd4.time == bd42.time);
 console.log(bd4.format("%YYYY%MM%DD%hh%mm%ss%ms%YY%M%D%h%m%s%%"))
 assert(bd4.format("%YYYY%MM%DD%hh%mm%ss%ms%YY%M%D%h%m%s%%") === "202102020304050062122345%");
 
+const bd4_sw = bd4.beginningOfWeek();
+const bd4_ew = bd4.endOfWeek();
+console.log(bd4_sw.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/01/31 00:00:00.000
+console.log(bd4_ew.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/02/06 23:59:59.999
+assert(bd4_sw.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms") === "2021/01/31 00:00:00.000");
+assert(bd4_ew.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms") === "2021/02/06 23:59:59.999");
+
+
+const bd4_sy = bd4.beginningOfYear();
+const bd4_ey = bd4.endOfYear();
+console.log(bd4_sy.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/01/01 00:00:00.000
+console.log(bd4_ey.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms"));  // 2021/12/31 23:59:59.999
+assert(bd4_sy.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms") === "2021/01/01 00:00:00.000");
+assert(bd4_ey.format("%YYYY/%MM/%DD %hh:%mm:%ss.%ms") === "2021/12/31 23:59:59.999");
+
+
 console.log("finish");
 debugger;
 

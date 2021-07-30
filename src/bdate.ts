@@ -141,6 +141,14 @@ export class BDate {
     );
   }
 
+  public beginningOfWeek() {
+    return this.addDate(-this.day).beginningOfDay();
+  }
+
+  public endOfWeek() {
+    return this.addDate(6 - this.day).endOfDay();
+  }
+
   public beginningOfMonth() {
     // prettier-ignore
     return new BDate(
@@ -153,8 +161,30 @@ export class BDate {
   }
 
   public endOfMonth() {
-    const dt = this.beginningOfMonth().addMonth(1).addDate(-1);
-    return dt.endOfDay();
+    return this.beginningOfMonth().addMonth(1).addDate(-1).endOfDay();
+  }
+
+  public beginningOfYear() {
+    // prettier-ignore
+    return new BDate(
+      new Date(
+        this.rawDate.getFullYear(),
+        0,
+        1
+      )
+    );
+  }
+
+  public endOfYear() {
+    // prettier-ignore
+    return new BDate(
+      new Date(
+        this.rawDate.getFullYear(),
+        11,
+        31,
+        23, 59, 59, 999
+      )
+    );
   }
 
   public toString(){
