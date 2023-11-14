@@ -1,8 +1,8 @@
 {
   "name": "@codianz/better-date",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "The Date object easier to work with.",
-  "main": "./dist/bdate.js",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
     "prepare": "tsc",
