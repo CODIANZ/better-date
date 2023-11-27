@@ -89,3 +89,21 @@ export function getDayKind(ymd: IYMD): DayKind {
   const d = new Date(ymd.year, ymd.month - 1, ymd.day);
   return DayKinds[d.getDay()];
 }
+
+export function addDay(ymd: IYMD, days: number) {
+  const dt = ymdToDate(ymd);
+  dt.setDate(dt.getDate() + days);
+  return dateToYmd(dt);
+}
+
+export function addMonth(ymd: IYMD, months: number) {
+  const dt = ymdToDate(ymd);
+  dt.setMonth(dt.getMonth() + months);
+  return dateToYmd(dt);
+}
+
+export function diffYmd(a: IYMD, b: IYMD) {
+  const dtA = ymdToDate(a);
+  const dtB = ymdToDate(b);
+  return Math.floor((dtA.getTime() - dtB.getTime()) / 86400000);
+}
