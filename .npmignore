@@ -3,3 +3,4 @@ dist/*.test.d.ts
 .vscode/
 src/
 tsconfig.json
+jest.config.js
