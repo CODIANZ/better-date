@@ -23,12 +23,6 @@ export class HHMM {
     return new HHMM(hhmm);
   }
 
-  public static fromDate(date: Date) {
-    return new HHMM(
-      ("00" + date.getHours()).slice(-2) + ("00" + date.getMinutes()).slice(-2)
-    );
-  }
-
   private addWithModN(a: number, b: number, N: number) {
     const ab = a + b;
     if (ab < 0) {
@@ -47,7 +41,7 @@ export class HHMM {
 
   public get valid() {
     /* 0000 ～ 2959 */
-    return this.hhmm.match(/^[0-2][0-9][0-5][0-9]$/);
+    return this.hhmm.match(/^[0-2][0-9][0-5][0-9]$/) !== null;
   }
 
   public get empty() {
@@ -100,13 +94,13 @@ export class HHMM {
     }
   }
 
-  public floor(align: number) {
-    const offset = align * Math.floor(this.m / align);
+  public floor(alignMinutes: number) {
+    const offset = alignMinutes * Math.floor(this.m / alignMinutes);
     return this.addMinutes(-this.m + offset);
   }
 
-  public ceil(align: number) {
-    const offset = align * Math.ceil(this.m / align);
+  public ceil(alignMinutes: number) {
+    const offset = alignMinutes * Math.ceil(this.m / alignMinutes);
     return this.addMinutes(-this.m + offset);
   }
 }

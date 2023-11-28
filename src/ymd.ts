@@ -1,22 +1,10 @@
-import { DayKinds, DayKind } from "./day-kind";
+import { BDate } from "./bdate";
+import { DayOfWeeks, DayOfWeek } from "./day-of-week";
 
 export interface IYMD {
   year: number;
   month: number;
   day: number;
-}
-
-export function ymdToDate(ymd: IYMD) {
-  return new Date(ymd.year, ymd.month - 1, ymd.day);
-}
-
-export function dateToYmd(dt: string | Date) {
-  const d = new Date(dt);
-  return {
-    year: d.getFullYear(),
-    month: d.getMonth() + 1,
-    day: d.getDate(),
-  };
 }
 
 export function isSameYmd(a: IYMD | undefined, b: IYMD | undefined) {
@@ -36,13 +24,8 @@ export function ymdToString(ymd: IYMD) {
 }
 
 export function isValidYmd(ymd: IYMD) {
-  return (
-    ymd.year > 0 &&
-    ymd.month >= 1 &&
-    ymd.month <= 12 &&
-    ymd.day >= 1 &&
-    ymd.day <= 31
-  );
+  const d = BDate.fromUTCDateTimeValues(ymd.year, ymd.month, ymd.day);
+  return d.year === ymd.year && d.month === ymd.month && d.day === ymd.day;
 }
 
 export function stringToYmd(s: string): IYMD | undefined {
@@ -69,23 +52,43 @@ export function stringToYmd(s: string): IYMD | undefined {
 }
 
 export function isYmdLike(s: unknown): s is IYMD {
-  if(typeof s === "object"){
-    if(s === null) return false;
-    if("year" in s){
-      if(typeof s.year !== "number") return false;
+  if (typeof s === "object") {
+    if (s === null) return false;
+    if ("year" in s) {
+      if (typeof s.year !== "number") return false;
     }
-    if("month" in s){
-      if(typeof s.month !== "number") return false;
+    if ("month" in s) {
+      if (typeof s.month !== "number") return false;
     }
-    if("day" in s){
-      if(typeof s.day !== "number") return false;
+    if ("day" in s) {
+      if (typeof s.day !== "number") return false;
     }
     return true;
   }
   return false;
 }
 
-export function getDayKind(ymd: IYMD): DayKind {
-  const d = new Date(ymd.year, ymd.month - 1, ymd.day);
-  return DayKinds[d.getDay()];
+export function getDayOfWeek(ymd: IYMD): DayOfWeek {
+  const d = BDate.fromUTCDateTimeValues(ymd.year, ymd.month, ymd.day);
+  return DayOfWeeks[d.dayOfWeek];
+}
+
+export function addDay(ymd: IYMD, days: number) {
+  return BDate.fromUTCDateTimeValues(ymd.year, ymd.month, ymd.day)
+    .addDays(days)
+    .toYMD();
+}
+
+export function addMonth(ymd: IYMD, months: number) {
+  return BDate.fromUTCDateTimeValues(ymd.year, ymd.month, ymd.day)
+    .addMonths(months)
+    .toYMD();
+}
+
+export function diffYmd(a: IYMD, b: IYMD) {
+  return (
+    (BDate.fromUTCDateTimeValues(a.year, a.month, a.day).msecSinceEpoch -
+      BDate.fromUTCDateTimeValues(b.year, b.month, b.day).msecSinceEpoch) /
+    86400000
+  );
 }
