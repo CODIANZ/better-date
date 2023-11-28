@@ -1,26 +1,27 @@
 export class HHMM {
   private hhmm = "";
-  constructor(hhmm: string | number | HHMM) {
-    switch (typeof hhmm) {
-      case "string": {
-        this.hhmm = hhmm.replace(":", "");
-        break;
-      }
-      case "number": {
-        this.hhmm = ("0000" + hhmm.toString()).slice(-4);
-        break;
-      }
-      case "object": {
-        if ("hhmm" in hhmm) {
-          this.hhmm = hhmm.hhmm;
-        }
-        break;
-      }
-    }
+  private constructor(hhmm: string) {
+    this.hhmm = hhmm;
   }
 
-  public static from(hhmm: string | number | HHMM) {
-    return new HHMM(hhmm);
+  public static from(source: string | HHMM) {
+    let result: HHMM | undefined = undefined;
+    if (source instanceof HHMM) {
+      result = new HHMM(source.str);
+    } else if (typeof source === "string") {
+      const m = source.match(/^([0-9]{1,2})[:-]([0-9]{1,2})$/);
+      if (m) {
+        result = new HHMM(("00" + m[1]).slice(-2) + ("00" + m[2]).slice(-2));
+      } else {
+        if (source.match(/^([0-9]{4})$/)) {
+          result = new HHMM(source);
+        }
+      }
+    }
+    if (result === undefined || !result.valid) {
+      throw new Error(`Invalid source: ${source}`);
+    }
+    return result;
   }
 
   private addWithModN(a: number, b: number, N: number) {
