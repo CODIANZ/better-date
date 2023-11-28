@@ -1,12 +1,12 @@
 {
   "name": "@codianz/better-date",
-  "version": "0.0.16",
+  "version": "0.1.00",
   "description": "The Date object easier to work with.",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
     "prepare": "tsc",
-    "test": "tsc && node ./dist/test.js",
+    "test": "jest",
     "deploy": "npm publish --access=public"
   },
   "keywords": [
@@ -21,7 +21,10 @@
     "url": "https://github.com/CODIANZ/npm.better-date.git"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.10",
     "@types/node": "^16.18.57",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.0.2"
   }
 }
