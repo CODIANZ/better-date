@@ -30,7 +30,7 @@ export function isValidYmd(ymd: IYMD) {
 
 export function stringToYmd(s: string): IYMD {
   let ymd: IYMD | undefined = undefined;
-  const m = s.match(/^([\d]{4})[-/]([\d]{1,2})[-/]([\d]{1,2}).*/);
+  const m = s.match(/^([\d]{4})[-/]?([\d]{1,2})[-/]?([\d]{1,2})$/);
   if (m) {
     ymd = {
       year: parseInt(m[1], 10),
