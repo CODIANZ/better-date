@@ -28,27 +28,20 @@ export function isValidYmd(ymd: IYMD) {
   return d.year === ymd.year && d.month === ymd.month && d.day === ymd.day;
 }
 
-export function stringToYmd(s: string): IYMD | undefined {
-  {
-    const m = s.match(/^([\d]{4})[-/]?([\d]{2})[-/]?([\d]{2}).*/);
-    if (m) {
-      return {
-        year: parseInt(m[1]),
-        month: parseInt(m[2]),
-        day: parseInt(m[3]),
-      };
-    }
+export function stringToYmd(s: string): IYMD {
+  let ymd: IYMD | undefined = undefined;
+  const m = s.match(/^([\d]{4})[-/]([\d]{1,2})[-/]([\d]{1,2}).*/);
+  if (m) {
+    ymd = {
+      year: parseInt(m[1], 10),
+      month: parseInt(m[2], 10),
+      day: parseInt(m[3], 10),
+    };
   }
-  {
-    const m = s.match(/^([\d]{4})[-/]([\d]{1,2})[-/]([\d]{1,2}).*/);
-    if (m) {
-      return {
-        year: parseInt(m[1]),
-        month: parseInt(m[2]),
-        day: parseInt(m[3]),
-      };
-    }
+  if (ymd === undefined || !isValidYmd(ymd)) {
+    throw new Error(`Invalid date string: ${s}`);
   }
+  return ymd;
 }
 
 export function isYmdLike(s: unknown): s is IYMD {
@@ -56,12 +49,18 @@ export function isYmdLike(s: unknown): s is IYMD {
     if (s === null) return false;
     if ("year" in s) {
       if (typeof s.year !== "number") return false;
+    } else {
+      return false;
     }
     if ("month" in s) {
       if (typeof s.month !== "number") return false;
+    } else {
+      return false;
     }
     if ("day" in s) {
       if (typeof s.day !== "number") return false;
+    } else {
+      return false;
     }
     return true;
   }
@@ -73,19 +72,19 @@ export function getDayOfWeek(ymd: IYMD): DayOfWeek {
   return DayOfWeeks[d.dayOfWeek];
 }
 
-export function addDay(ymd: IYMD, days: number) {
+export function addDays(ymd: IYMD, days: number) {
   return BDate.fromUTCDateTimeValues(ymd.year, ymd.month, ymd.day)
     .addDays(days)
     .toYMD();
 }
 
-export function addMonth(ymd: IYMD, months: number) {
+export function addMonths(ymd: IYMD, months: number) {
   return BDate.fromUTCDateTimeValues(ymd.year, ymd.month, ymd.day)
     .addMonths(months)
     .toYMD();
 }
 
-export function diffYmd(a: IYMD, b: IYMD) {
+export function diffYmdDays(a: IYMD, b: IYMD) {
   return (
     (BDate.fromUTCDateTimeValues(a.year, a.month, a.day).msecSinceEpoch -
       BDate.fromUTCDateTimeValues(b.year, b.month, b.day).msecSinceEpoch) /
