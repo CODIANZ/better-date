@@ -14,6 +14,19 @@ test("stringToYmd", () => {
   expect(ymd.month).toBe(1);
   expect(ymd.day).toBe(2);
   expect(() => YMD.stringToYmd("2020-01-32")).toThrow();
+  const ymd2 = YMD.stringToYmd("2020/01/02");
+  expect(ymd2.year).toBe(2020);
+  expect(ymd2.month).toBe(1);
+  expect(ymd2.day).toBe(2);
+  const ymd3 = YMD.stringToYmd("2020/1/2");
+  expect(ymd3.year).toBe(2020);
+  expect(ymd3.month).toBe(1);
+  expect(ymd3.day).toBe(2);
+  const ymd4 = YMD.stringToYmd("20200102");
+  expect(ymd4.year).toBe(2020);
+  expect(ymd4.month).toBe(1);
+  expect(ymd4.day).toBe(2);
+  expect(() => YMD.stringToYmd("20200132")).toThrow();
 });
 
 test("ymdToString", () => {
