@@ -414,6 +414,15 @@ export class BDate extends DateTimeCore {
     );
   }
 
+  public static fromYMD(ymd: IYMD, utcOffset: AnyUTCOffset): BDate {
+    return BDate.fromLocalDateTimeValues(
+      convertToUTCOffsetMinutes(utcOffset),
+      ymd.year,
+      ymd.month,
+      ymd.day
+    );
+  }
+
   /** calculations */
 
   public addMilliseconds(n: number) {
@@ -512,4 +521,3 @@ export class BDate extends DateTimeCore {
     return ndt.addDays(-1).endOfDay();
   }
 }
-
