@@ -231,6 +231,23 @@ test("Date begin of, end of", () => {
   );
 });
 
+test("check issue #1", () => {
+  const date = BDate.fromLocalDateTimeValues(
+    "+09:00",
+    2024,
+    1,
+    30,
+    11,
+    0,
+    0,
+    0
+  );
+
+  expect(date.endOfMonth().toISOStringWithOffset()).toBe(
+    "2024-01-31T23:59:59.999+09:00"
+  );
+});
+
 test("to HHMM", () => {
   const date = BDate.fromLocalDateTimeValues(
     "+09:00",

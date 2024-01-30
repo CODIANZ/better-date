@@ -501,23 +501,23 @@ export class BDate extends DateTimeCore {
 
   public endOfMonth() {
     const ndt = this.clone();
-    ndt.month += 1;
     ndt.day = 1;
+    ndt.month += 1;
     return ndt.addDays(-1).endOfDay();
   }
 
   public beginOfYear() {
     const ndt = this.clone();
-    ndt.month = 1;
     ndt.day = 1;
+    ndt.month = 1;
     return ndt.beginOfDay();
   }
 
   public endOfYear() {
     const ndt = this.clone();
-    ndt.year += 1;
-    ndt.month = 1;
     ndt.day = 1;
+    ndt.month = 1;
+    ndt.year += 1;
     return ndt.addDays(-1).endOfDay();
   }
 }
