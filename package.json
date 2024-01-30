@@ -1,6 +1,6 @@
 {
   "name": "@codianz/better-date",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "The Date object easier to work with.",
   "main": "./dist/index.js",
   "scripts": {
